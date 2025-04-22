@@ -1,7 +1,7 @@
 FROM node:14.16.0-alpine3.13
 
 # Create app user and group
-RUN addgroup app && adduser -S -G app app
+# RUN addgroup app && adduser -S -G app app
 
 # Set the working directory
 WORKDIR /app
@@ -14,13 +14,15 @@ RUN npm install
 COPY . .
 
 # Grant write permissions to the app user for /app directory and the entrypoint script
-RUN chown -R app:app /app && chmod +x /app/docker-entrypoint.sh
+# RUN chown -R app:app /app && chmod +x /app/docker-entrypoint.sh
+
+RUN chmod +x /app/docker-entrypoint.sh
 
 # Expose the application port
 EXPOSE 3001
 
-# Switch to the app user
-USER app
+# # Switch to the app user
+# USER app
 
 # Start the application
 CMD ["npm", "start"]
